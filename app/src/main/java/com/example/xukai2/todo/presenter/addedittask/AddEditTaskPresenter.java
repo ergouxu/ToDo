@@ -1,6 +1,7 @@
 package com.example.xukai2.todo.presenter.addedittask;
 
 public class AddEditTaskPresenter implements AddEditTaskContract.Presenter {
+
     @Override
     public void saveTask(String title, String description) {
 
@@ -21,13 +22,4 @@ public class AddEditTaskPresenter implements AddEditTaskContract.Presenter {
 
     }
 
-    @Override
-    public void attachView(AddEditTaskContract.View view) {
-
-    }
-
-    @Override
-    public void detachView() {
-
-    }
 }

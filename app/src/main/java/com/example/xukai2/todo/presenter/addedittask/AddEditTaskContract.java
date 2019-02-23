@@ -5,7 +5,7 @@ import com.example.xukai2.todo.base.BaseView;
 
 public interface AddEditTaskContract {
 
-    interface View extends BaseView {
+    interface View extends BaseView<Presenter> {
 
         void showEmptyTaskError();
 
@@ -18,7 +18,7 @@ public interface AddEditTaskContract {
         boolean isActive();
     }
 
-    interface Presenter extends BasePresenter<View> {
+    interface Presenter extends BasePresenter {
 
         void saveTask(String title, String description);
 

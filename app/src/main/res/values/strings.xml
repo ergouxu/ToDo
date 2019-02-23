@@ -1,10 +1,14 @@
 <resources>
     <string name="app_name">ToDo</string>
 
+    <!--add edit task-->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="menu_filter">Filter</string>
     <string name="menu_clear">Clear Completed</string>
     <string name="menu_refresh">Refresh</string>
     <string name="title_hint">Title</string>
     <string name="description_hint">Enter your TO-DO here!</string>
+    <string name="add_task">NEW TODO</string>
+    <string name="edit_task">EDIT TODO</string>
+    <string name="empty_task_message">TO DOs cannot be empty</string>
 </resources>

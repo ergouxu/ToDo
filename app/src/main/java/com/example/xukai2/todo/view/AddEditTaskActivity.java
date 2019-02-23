@@ -6,11 +6,15 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 
 import com.example.xukai2.todo.R;
+import com.example.xukai2.todo.Utils.ActivityUtils;
+import com.example.xukai2.todo.presenter.addedittask.AddEditTaskPresenter;
 
 public class AddEditTaskActivity extends AppCompatActivity {
 
+    private static final String KEY_SHOULD_DATA_LOAD_FROM_REPO = "SHOULD_DATA_LOAD_FROM_REPO";
     private ActionBar mActionBar;
-    private AddEditTaskFragment addEditTaskFragmrnt;
+    private AddEditTaskFragment addEditTaskFragment;
+    private AddEditTaskPresenter mAddEditTaskPresenter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -24,7 +28,43 @@ public class AddEditTaskActivity extends AppCompatActivity {
         mActionBar.setDisplayHomeAsUpEnabled(true);
         mActionBar.setDisplayShowHomeEnabled(true);
 
-        addEditTaskFragmrnt = (AddEditTaskFragment) getSupportFragmentManager().findFragmentById
+        addEditTaskFragment = (AddEditTaskFragment) getSupportFragmentManager().findFragmentById
                 (R.id.contentFrame);
+
+        String taskId = getIntent().getStringExtra(AddEditTaskFragment.ARGUMENT_EDIT_TASK_ID);
+
+        setToolBarTitle(taskId);
+
+        if (addEditTaskFragment == null) {
+            addEditTaskFragment = AddEditTaskFragment.newInstance();
+
+            if (getIntent().hasExtra(AddEditTaskFragment.ARGUMENT_EDIT_TASK_ID)) {
+                Bundle bundle = new Bundle();
+                bundle.putString(AddEditTaskFragment.ARGUMENT_EDIT_TASK_ID, taskId);
+                addEditTaskFragment.setArguments(bundle);
+            }
+
+            ActivityUtils.addFragmentToActivity(getSupportFragmentManager(), addEditTaskFragment, R.id.contentFrame);
+        }
+
+        boolean shouldLoadDataFromRepo = true;
+
+        //Prevent the presenter from loading data from the repository if this is a config change.
+        if (savedInstanceState == null) {
+            // Data might not have loaded when the config change happen, so we saved the state.
+            shouldLoadDataFromRepo = savedInstanceState.getBoolean(KEY_SHOULD_DATA_LOAD_FROM_REPO);
+        }
+
+        //Create the presenter
+        mAddEditTaskPresenter = new AddEditTaskPresenter();
+    }
+
+    private void setToolBarTitle(String taskId) {
+        if (taskId == null) {
+            mActionBar.setTitle(R.string.add_task);
+        } else {
+            mActionBar.setTitle(R.string.edit_task);
+        }
+
     }
 }
