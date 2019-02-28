@@ -12,7 +12,7 @@ import com.google.common.base.Strings;
 import java.util.UUID;
 
 @Entity(tableName = "tasks")
-public class Task {
+public final class Task {
 
     @PrimaryKey
     @NonNull
