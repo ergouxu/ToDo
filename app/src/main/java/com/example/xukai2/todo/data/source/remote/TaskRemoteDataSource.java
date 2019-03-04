@@ -1,9 +1,11 @@
 package com.example.xukai2.todo.data.source.remote;
 
+import android.os.Handler;
 import android.support.annotation.NonNull;
 
 import com.example.xukai2.todo.data.Task;
 import com.example.xukai2.todo.data.source.TasksDataSource;
+import com.google.common.collect.Lists;
 
 import java.util.LinkedHashMap;
 import java.util.Map;
@@ -31,7 +33,7 @@ public class TaskRemoteDataSource implements TasksDataSource {
         return INSTANCE;
     }
 
-    //Prevent direct instantiation
+    //Prevent direct instantiation(防止直接实例化)
     private TaskRemoteDataSource() {
     }
 
@@ -40,39 +42,66 @@ public class TaskRemoteDataSource implements TasksDataSource {
         TASKS_SERVICE_DATA.put(newTask.getmId(), newTask);
     }
 
+    /**
+     * Mote:{@link  LoadTasksCallback#onDataNotAvailable()} is never fired, In a real remote data source
+     * implementation, this would be fired if the server can't be contacted or the server returns an error.
+     */
     @Override
-    public void getTasks(@NonNull LoadTasksCallback callback) {
-
+    public void getTasks(@NonNull final LoadTasksCallback callback) {
+        Handler handler = new Handler();
+        handler.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                callback.onTasksLoaded(Lists.newArrayList(TASKS_SERVICE_DATA.values()));
+            }
+        }, SERVICE_LATENCY_IN_MILLIS);
     }
 
+    /**
+     * Note: {@link GetTasksCallBack#onDataNotAvailable()} is never fired. In a real remote data source
+     * implementation, this would be fired if the server can't be contacted or the server return an error.
+     */
     @Override
-    public void getTask(@NonNull String taskId, @NonNull GetTasksCallBack callBack) {
+    public void getTask(@NonNull String taskId, @NonNull final GetTasksCallBack callBack) {
+        final Task task = TASKS_SERVICE_DATA.get(taskId);
 
+        // Simulate network by delaying the execution.
+        Handler handler = new Handler();
+        handler.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                callBack.onTasksLoaded(task);
+            }
+        }, SERVICE_LATENCY_IN_MILLIS);
     }
 
     @Override
     public void saveTask(@NonNull Task task) {
-
+        TASKS_SERVICE_DATA.put(task.getmId(), task);
     }
 
     @Override
     public void completeTask(@NonNull Task task) {
-
+        Task completedTask =  new Task(task.getmId(), task.getmTitle(), task.getmDescription(), true);
+        TASKS_SERVICE_DATA.put(task.getmId(), completedTask);
     }
 
     @Override
     public void completeTask(@NonNull String taskId) {
-
+        // Not required for the remote data source because the {@link TasksRepository} handles
+        // converting from a {@code taskId} to a {@link task} using its cached data.
     }
 
     @Override
     public void activateTask(@NonNull Task task) {
-
+        Task activeTask = new Task(task.getmId(), task.getmTitle(), task.getmDescription());
+        TASKS_SERVICE_DATA.put(task.getmId(), activeTask);
     }
 
     @Override
     public void activateTask(@NonNull String taskId) {
-
+        // Not required for the remote data source because the {@link TasksRepository} handles
+        // converting from a {@code taskId} to a {@link task} using its cached data.
     }
 
     @Override
