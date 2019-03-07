@@ -1,4 +1,4 @@
-package com.example.xukai2.todo.view;
+package com.example.xukai2.todo.view.addedittask;
 
 import android.os.Bundle;
 import android.support.v7.app.ActionBar;
@@ -14,7 +14,6 @@ public class AddEditTaskActivity extends AppCompatActivity {
     private static final String KEY_SHOULD_DATA_LOAD_FROM_REPO = "SHOULD_DATA_LOAD_FROM_REPO";
     private ActionBar mActionBar;
     private AddEditTaskFragment addEditTaskFragment;
-    private AddEditTaskPresenter mAddEditTaskPresenter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -56,7 +55,11 @@ public class AddEditTaskActivity extends AppCompatActivity {
         }
 
         //Create the presenter
-        mAddEditTaskPresenter = new AddEditTaskPresenter();
+        mAddEditTaskPresenter = new AddEditTaskPresenter(
+                taskId,
+                Injection.provideTasksRepository(getApplicationContext()),
+                addEditTaskFragment,
+                shouldLoadDataFromRepo);
     }
 
     private void setToolBarTitle(String taskId) {
@@ -65,6 +68,12 @@ public class AddEditTaskActivity extends AppCompatActivity {
         } else {
             mActionBar.setTitle(R.string.edit_task);
         }
+    }
 
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        // Save the state so that next time we know if we need to refresh data.
+        outState.putBoolean(SHOULD_LOAD_DATA_FROM_REPO_KEY, mAddEditTaskPresenter.isDatamissing());
+        super.onSaveInstanceState(outState);
     }
 }

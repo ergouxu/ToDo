@@ -7,11 +7,13 @@ import com.example.xukai2.todo.data.Task;
 import com.example.xukai2.todo.data.source.TasksDataSource;
 import com.google.common.collect.Lists;
 
+import java.util.Iterator;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
 /**
  * Implementation of the data source that adds a latency simulating network.
+ * 添加延迟模拟网络的数据源的实现。
  */
 public class TaskRemoteDataSource implements TasksDataSource {
 
@@ -82,7 +84,7 @@ public class TaskRemoteDataSource implements TasksDataSource {
 
     @Override
     public void completeTask(@NonNull Task task) {
-        Task completedTask =  new Task(task.getmId(), task.getmTitle(), task.getmDescription(), true);
+        Task completedTask = new Task(task.getmId(), task.getmTitle(), task.getmDescription(), true);
         TASKS_SERVICE_DATA.put(task.getmId(), completedTask);
     }
 
@@ -106,21 +108,28 @@ public class TaskRemoteDataSource implements TasksDataSource {
 
     @Override
     public void clearCompletedTasks() {
-
+        Iterator<Map.Entry<String, Task>> it = TASKS_SERVICE_DATA.entrySet().iterator();
+        while (it.hasNext()) {
+            Map.Entry<String, Task> entry = it.next();
+            if (entry.getValue().ismCompleted()) {
+                it.remove();
+            }
+        }
     }
 
     @Override
     public void refreshTasks() {
-
+        // Not required because the {@link TasksRepository} handles the logic of refreshing the
+        // tasks from all the available data sources.
     }
 
     @Override
     public void deleteAllTasks() {
-
+        TASKS_SERVICE_DATA.clear();
     }
 
     @Override
     public void deleteTask(@NonNull String taskId) {
-
+        TASKS_SERVICE_DATA.remove(taskId);
     }
 }
