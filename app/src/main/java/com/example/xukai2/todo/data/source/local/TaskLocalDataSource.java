@@ -3,7 +3,7 @@ package com.example.xukai2.todo.data.source.local;
 import android.support.annotation.NonNull;
 import android.support.annotation.VisibleForTesting;
 
-import com.example.xukai2.todo.Utils.AppExecutors;
+import com.example.xukai2.todo.utils.AppExecutors;
 import com.example.xukai2.todo.data.Task;
 import com.example.xukai2.todo.data.source.TasksDataSource;
 

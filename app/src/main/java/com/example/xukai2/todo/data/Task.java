@@ -100,7 +100,7 @@ public final class Task {
     }
 
     @NonNull
-    public boolean ismCompleted() {
+    public boolean isCompleted() {
         return mCompleted;
     }
 

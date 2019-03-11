@@ -1,19 +1,23 @@
 package com.example.xukai2.todo.view.addedittask;
 
 import android.os.Bundle;
+import android.support.annotation.VisibleForTesting;
+import android.support.test.espresso.IdlingResource;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 
+import com.example.xukai2.todo.Injection;
 import com.example.xukai2.todo.R;
-import com.example.xukai2.todo.Utils.ActivityUtils;
 import com.example.xukai2.todo.presenter.addedittask.AddEditTaskPresenter;
+import com.example.xukai2.todo.utils.ActivityUtils;
+import com.example.xukai2.todo.utils.EspressoIdlingResource;
 
 public class AddEditTaskActivity extends AppCompatActivity {
 
-    private static final String KEY_SHOULD_DATA_LOAD_FROM_REPO = "SHOULD_DATA_LOAD_FROM_REPO";
+    private static final String SHOULD_LOAD_DATA_FROM_REPO_KEY = "SHOULD_DATA_LOAD_FROM_REPO_KEY";
     private ActionBar mActionBar;
-    private AddEditTaskFragment addEditTaskFragment;
+    private AddEditTaskPresenter addEditTaskPredenter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -27,7 +31,7 @@ public class AddEditTaskActivity extends AppCompatActivity {
         mActionBar.setDisplayHomeAsUpEnabled(true);
         mActionBar.setDisplayShowHomeEnabled(true);
 
-        addEditTaskFragment = (AddEditTaskFragment) getSupportFragmentManager().findFragmentById
+        AddEditTaskFragment addEditTaskFragment = (AddEditTaskFragment) getSupportFragmentManager().findFragmentById
                 (R.id.contentFrame);
 
         String taskId = getIntent().getStringExtra(AddEditTaskFragment.ARGUMENT_EDIT_TASK_ID);
@@ -51,11 +55,11 @@ public class AddEditTaskActivity extends AppCompatActivity {
         //Prevent the presenter from loading data from the repository if this is a config change.
         if (savedInstanceState == null) {
             // Data might not have loaded when the config change happen, so we saved the state.
-            shouldLoadDataFromRepo = savedInstanceState.getBoolean(KEY_SHOULD_DATA_LOAD_FROM_REPO);
+            shouldLoadDataFromRepo = savedInstanceState.getBoolean(SHOULD_LOAD_DATA_FROM_REPO_KEY);
         }
 
         //Create the presenter
-        mAddEditTaskPresenter = new AddEditTaskPresenter(
+        addEditTaskPredenter = new AddEditTaskPresenter(
                 taskId,
                 Injection.provideTasksRepository(getApplicationContext()),
                 addEditTaskFragment,
@@ -73,7 +77,18 @@ public class AddEditTaskActivity extends AppCompatActivity {
     @Override
     protected void onSaveInstanceState(Bundle outState) {
         // Save the state so that next time we know if we need to refresh data.
-        outState.putBoolean(SHOULD_LOAD_DATA_FROM_REPO_KEY, mAddEditTaskPresenter.isDatamissing());
+        outState.putBoolean(SHOULD_LOAD_DATA_FROM_REPO_KEY, addEditTaskPredenter.isDataMissing());
         super.onSaveInstanceState(outState);
+    }
+
+    @Override
+    public boolean onSupportNavigateUp() {
+        onBackPressed();
+        return true;
+    }
+
+    @VisibleForTesting
+    public IdlingResource getCountingIdlingResource() {
+        return EspressoIdlingResource.getIdlingResource();
     }
 }

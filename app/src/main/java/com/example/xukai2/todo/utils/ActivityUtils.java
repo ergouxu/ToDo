@@ -1,4 +1,4 @@
-package com.example.xukai2.todo.Utils;
+package com.example.xukai2.todo.utils;
 
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
