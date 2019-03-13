@@ -105,7 +105,7 @@ public class TaskLocalDataSource implements TasksDataSource {
         Runnable completedRunnable = new Runnable() {
             @Override
             public void run() {
-                mTaskDao.updateCompleted(task.getmId(), true);
+                mTaskDao.updateCompleted(task.getId(), true);
             }
         };
         mAppExecutors.diskIO().execute(completedRunnable);
@@ -122,7 +122,7 @@ public class TaskLocalDataSource implements TasksDataSource {
         Runnable activityRunnable = new Runnable() {
             @Override
             public void run() {
-                mTaskDao.updateCompleted(task.getmId(), false);
+                mTaskDao.updateCompleted(task.getId(), false);
             }
         };
         mAppExecutors.diskIO().execute(activityRunnable);

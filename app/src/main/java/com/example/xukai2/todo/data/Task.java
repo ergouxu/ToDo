@@ -71,31 +71,31 @@ public final class Task {
      * Use this constructor to specify a completed Task if the Task already has an id (copy of
      * another Task).
      *
-     * @param mId          id of the task
-     * @param mTitle       title of the task
-     * @param mDescription description of the task
-     * @param mCompleted   completed of the task
+     * @param id         id of the task
+     * @param title       title of the task
+     * @param description of the task
+     * @param completed   completed of the task
      */
-    public Task(@NonNull String mId, @NonNull String mTitle, @NonNull String mDescription, @NonNull boolean
-            mCompleted) {
-        this.mId = mId;
-        this.mTitle = mTitle;
-        this.mDescription = mDescription;
-        this.mCompleted = mCompleted;
+    public Task(@NonNull String id, @NonNull String title, @NonNull String description, @NonNull boolean
+            completed) {
+        this.mId = id;
+        this.mTitle = title;
+        this.mDescription = description;
+        this.mCompleted = completed;
     }
 
     @NonNull
-    public String getmId() {
+    public String getId() {
         return mId;
     }
 
     @NonNull
-    public String getmTitle() {
+    public String getTitle() {
         return mTitle;
     }
 
     @NonNull
-    public String getmDescription() {
+    public String getDescription() {
         return mDescription;
     }
 

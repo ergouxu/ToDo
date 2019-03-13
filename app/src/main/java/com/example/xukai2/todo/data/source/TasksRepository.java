@@ -119,7 +119,7 @@ public class TasksRepository implements TasksDataSource {
             mCachedTasks = new LinkedHashMap<>();
         mCachedTasks.clear();
         for (Task task : tasks) {
-            mCachedTasks.put(task.getmId(), task);
+            mCachedTasks.put(task.getId(), task);
         }
         mCachedIsDirty = false;
     }
@@ -152,7 +152,7 @@ public class TasksRepository implements TasksDataSource {
                 if (mCachedTasks == null) {
                     mCachedTasks = new LinkedHashMap<>();
                 }
-                mCachedTasks.put(task.getmId(), task);
+                mCachedTasks.put(task.getId(), task);
                 callBack.onTasksLoaded(task);
             }
 
@@ -165,7 +165,7 @@ public class TasksRepository implements TasksDataSource {
                         if (mCachedTasks == null) {
                             mCachedTasks = new LinkedHashMap<>();
                         }
-                        mCachedTasks.put(task.getmId(), task);
+                        mCachedTasks.put(task.getId(), task);
                         callBack.onTasksLoaded(task);
                     }
 
@@ -188,7 +188,7 @@ public class TasksRepository implements TasksDataSource {
         if (mCachedTasks == null) {
             mCachedTasks = new LinkedHashMap<>();
         }
-        mCachedTasks.put(task.getmId(), task);
+        mCachedTasks.put(task.getId(), task);
     }
 
     @Override
@@ -197,13 +197,13 @@ public class TasksRepository implements TasksDataSource {
         mTaskLocalDataSource.completeTask(task);
         mTaskRemoteDataSource.completeTask(task);
 
-        Task completedTask = new Task(task.getmId(), task.getmTitle(), task.getmDescription(), true);
+        Task completedTask = new Task(task.getId(), task.getTitle(), task.getDescription(), true);
 
         //Do in memory cache update to keep the app UI up ro data
         if (mCachedTasks == null) {
             mCachedTasks = new LinkedHashMap<>();
         }
-        mCachedTasks.put(task.getmId(), completedTask);
+        mCachedTasks.put(task.getId(), completedTask);
     }
 
     @Override
@@ -219,13 +219,13 @@ public class TasksRepository implements TasksDataSource {
         mTaskRemoteDataSource.activateTask(task);
         mTaskLocalDataSource.activateTask(task);
 
-        Task activityTask = new Task(task.getmId(), task.getmTitle(), task.getmDescription());
+        Task activityTask = new Task(task.getId(), task.getTitle(), task.getDescription());
 
         //Do in memory cache to keep the app UI up to date
         if (mCachedTasks == null) {
             mCachedTasks = new LinkedHashMap<>();
         }
-        mCachedTasks.put(task.getmId(), activityTask);
+        mCachedTasks.put(task.getId(), activityTask);
     }
 
     @Override

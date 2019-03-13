@@ -6,6 +6,8 @@ import android.support.annotation.Nullable;
 import com.example.xukai2.todo.data.Task;
 import com.example.xukai2.todo.data.source.TasksDataSource;
 
+import static com.google.common.base.Preconditions.checkNotNull;
+
 public class AddEditTaskPresenter implements AddEditTaskContract.Presenter, TasksDataSource.GetTasksCallBack {
 
     @NonNull
@@ -22,17 +24,19 @@ public class AddEditTaskPresenter implements AddEditTaskContract.Presenter, Task
     /**
      * creates a presenter for the add/edit view.
      *
-     * @param mTaskId          ID of the task to edit or null for a new task.
-     * @param mTasksRepository a repository of data for tasks.
-     * @param mAddTaskView     the add/edit view.
-     * @param mIsDataMissing   whether data needs to be loaded or not (for config change)
+     * @param taskId          ID of the task to edit or null for a new task.
+     * @param tasksRepository  repository of data for tasks.
+     * @param addTaskView     the add/edit view.
+     * @param shouldLoadDataFromRepo   whether data needs to be loaded or not (for config change)
      */
-    public AddEditTaskPresenter(@Nullable String mTaskId, @NonNull TasksDataSource mTasksRepository, @NonNull
-            AddEditTaskContract.View mAddTaskView, boolean mIsDataMissing) {
-        this.mTasksRepository = mTasksRepository;
-        this.mAddTaskView = mAddTaskView;
-        this.mTaskId = mTaskId;
-        this.mIsDataMissing = mIsDataMissing;
+    public AddEditTaskPresenter(@Nullable String taskId, @NonNull TasksDataSource tasksRepository, @NonNull
+            AddEditTaskContract.View addTaskView, boolean shouldLoadDataFromRepo) {
+        this.mTasksRepository = checkNotNull(tasksRepository);
+        this.mAddTaskView = checkNotNull(addTaskView);
+        this.mTaskId = taskId;
+        this.mIsDataMissing = shouldLoadDataFromRepo;
+
+        mAddTaskView.setPresenter(this);
     }
 
     @Override
@@ -68,8 +72,8 @@ public class AddEditTaskPresenter implements AddEditTaskContract.Presenter, Task
     public void onTasksLoaded(Task task) {
         // The view may not be able to handle UI updates anymore.
         if (mAddTaskView.isActive()) {
-            mAddTaskView.setTitle(task.getmTitle());
-            mAddTaskView.setDescription(task.getmDescription());
+            mAddTaskView.setTitle(task.getTitle());
+            mAddTaskView.setDescription(task.getDescription());
         }
         mIsDataMissing = false;
     }

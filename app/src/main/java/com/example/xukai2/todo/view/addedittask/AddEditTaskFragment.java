@@ -79,7 +79,7 @@ public class AddEditTaskFragment extends Fragment implements AddEditTaskContract
 
     @Override
     public boolean isActive() {
-        //如果片段当前已添加到其活动，则返回true。
+        //如果片段已经添加到当前活动，则返回true。
         return isAdded();
     }
 
