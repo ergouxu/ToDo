@@ -11,4 +11,9 @@
     <string name="add_task">NEW TODO</string>
     <string name="edit_task">EDIT TODO</string>
     <string name="empty_task_message">TO DOs cannot be empty</string>
+    <string name="navigation_view_header_title">ToDOs</string>
+    <string name="list_title">TO-DO Lsit</string>
+    <string name="statistics_title">Statistics</string>
+    <string name="no_tasks_all">you hava no TO_DOs</string>
+    <string name="no_tasks_add">Add a TO_DO item +</string>
 </resources>
