@@ -1,7 +1,6 @@
 <resources>
     <string name="app_name">ToDo</string>
 
-    <!--add edit task-->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="menu_filter">Filter</string>
     <string name="menu_clear">Clear Completed</string>
@@ -12,8 +11,20 @@
     <string name="edit_task">EDIT TODO</string>
     <string name="empty_task_message">TO DOs cannot be empty</string>
     <string name="navigation_view_header_title">ToDOs</string>
-    <string name="list_title">TO-DO Lsit</string>
+    <string name="list_title">TO-DO List</string>
     <string name="statistics_title">Statistics</string>
-    <string name="no_tasks_all">you hava no TO_DOs</string>
-    <string name="no_tasks_add">Add a TO_DO item +</string>
+    <string name="no_tasks_all">You have no TO-DOs</string>
+    <string name="no_tasks_add">Add a TO-DO item +</string>
+    <string name="nav_all">All</string>
+    <string name="nav_active">Active</string>
+    <string name="nav_completed">Completed</string>
+    <string name="successfully_saved_task_message">TO-DO Saved</string>
+    <string name="no_tasks_completed">You have no completed TO-DOs!</string>
+    <string name="label_active">Active TO-DOs</string>
+    <string name="label_completed">Completed TO-DOs</string>
+    <string name="label_all">All TO-DOs</string>
+    <string name="task_marked_complete">Task marked complete</string>
+    <string name="task_marked_active">Task marked active</string>
+    <string name="completed_tasks_cleared">Completed tasks cleared</string>
+    <string name="loading_tasks_error">Error while loading tasks</string>
 </resources>

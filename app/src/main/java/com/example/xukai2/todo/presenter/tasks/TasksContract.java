@@ -43,9 +43,9 @@ public interface TasksContract {
 
         void showNoCompletedTasks();
 
-        void showSuccessfullySaveMessage();
+        void showSuccessfullySavedMessage();
 
-        void isActive();
+        boolean isActive();
 
         void showFilteringPopupMenu();
     }

@@ -15,9 +15,10 @@ import com.example.xukai2.todo.utils.EspressoIdlingResource;
 
 public class AddEditTaskActivity extends AppCompatActivity {
 
+    public static final int REQUEST_ADD_TASK = 1;
     private static final String SHOULD_LOAD_DATA_FROM_REPO_KEY = "SHOULD_DATA_LOAD_FROM_REPO_KEY";
     private ActionBar mActionBar;
-    private AddEditTaskPresenter addEditTaskPredenter;
+    private AddEditTaskPresenter addEditTaskPresenter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -59,7 +60,7 @@ public class AddEditTaskActivity extends AppCompatActivity {
         }
 
         //Create the presenter
-        addEditTaskPredenter = new AddEditTaskPresenter(
+        addEditTaskPresenter = new AddEditTaskPresenter(
                 taskId,
                 Injection.provideTasksRepository(getApplicationContext()),
                 addEditTaskFragment,
@@ -77,7 +78,7 @@ public class AddEditTaskActivity extends AppCompatActivity {
     @Override
     protected void onSaveInstanceState(Bundle outState) {
         // Save the state so that next time we know if we need to refresh data.
-        outState.putBoolean(SHOULD_LOAD_DATA_FROM_REPO_KEY, addEditTaskPredenter.isDataMissing());
+        outState.putBoolean(SHOULD_LOAD_DATA_FROM_REPO_KEY, addEditTaskPresenter.isDataMissing());
         super.onSaveInstanceState(outState);
     }
 
