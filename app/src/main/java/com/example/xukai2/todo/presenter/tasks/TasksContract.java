@@ -4,6 +4,7 @@ import android.support.annotation.NonNull;
 
 import com.example.xukai2.todo.base.BasePresenter;
 import com.example.xukai2.todo.base.BaseView;
+import com.example.xukai2.todo.component.TasksFilterType;
 import com.example.xukai2.todo.data.Task;
 
 import java.util.List;
@@ -25,7 +26,7 @@ public interface TasksContract {
 
         void showTaskMarkedCompleted();
 
-        void shoeTaskMarkedActive();
+        void showTaskMarkedActive();
 
         void showCompletedTasksCleared();
 
@@ -64,7 +65,7 @@ public interface TasksContract {
 
         void activeTask(@NonNull Task activeTask);
 
-        void clearCompletedtaskTask();
+        void clearCompletedTask();
 
         void setFiltering(TasksFilterType requestType);
 

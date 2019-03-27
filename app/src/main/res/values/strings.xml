@@ -27,4 +27,10 @@
     <string name="task_marked_active">Task marked active</string>
     <string name="completed_tasks_cleared">Completed tasks cleared</string>
     <string name="loading_tasks_error">Error while loading tasks</string>
+    <string name="loading">LOADING</string>
+    <!--statistics-->
+    <string name="statistics_no_tasks">You have no tasks!</string>
+    <string name="statistics_active_tasks">Active tasks:</string>
+    <string name="statistics_completed_tasks">Completed tasks:</string>
+    <string name="statistics_error">Error loading statistics</string>
 </resources>

@@ -25,9 +25,9 @@ import android.widget.TextView;
 
 import com.example.xukai2.todo.R;
 import com.example.xukai2.todo.data.Task;
-import com.example.xukai2.todo.presenter.tasks.ScrollChildSwipeRefreshLayout;
+import com.example.xukai2.todo.component.ScrollChildSwipeRefreshLayout;
 import com.example.xukai2.todo.presenter.tasks.TasksContract;
-import com.example.xukai2.todo.presenter.tasks.TasksFilterType;
+import com.example.xukai2.todo.component.TasksFilterType;
 import com.example.xukai2.todo.view.addedittask.AddEditTaskActivity;
 import com.example.xukai2.todo.view.detail.TaskDetailActivity;
 
@@ -129,7 +129,7 @@ public class TasksFragment extends Fragment implements TasksContract.View {
                 ContextCompat.getColor(getActivity(), R.color.colorPrimaryDark)
         );
         // Set up scrolling view in the custom SwipeRefreshLayout.
-        swipeRefreshLayout.setmScrollUpChild(listView);
+        swipeRefreshLayout.setScrollUpChild(listView);
 
         swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
@@ -147,7 +147,7 @@ public class TasksFragment extends Fragment implements TasksContract.View {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.menu_clear:
-                mPresenter.clearCompletedtaskTask();
+                mPresenter.clearCompletedTask();
                 break;
             case R.id.menu_filter:
                 showFilteringPopupMenu();
@@ -208,7 +208,7 @@ public class TasksFragment extends Fragment implements TasksContract.View {
     }
 
     @Override
-    public void shoeTaskMarkedActive() {
+    public void showTaskMarkedActive() {
         showMessage(getString(R.string.task_marked_active));
     }
 

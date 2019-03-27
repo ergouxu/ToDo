@@ -1,4 +1,4 @@
-package com.example.xukai2.todo.presenter.tasks;
+package com.example.xukai2.todo.component;
 
 import android.content.Context;
 import android.support.v4.view.ViewCompat;
@@ -10,7 +10,7 @@ import android.view.View;
  * Extends {@link SwipeRefreshLayout} to support non-direct descendant scrolling views
  * <p>
  * {@link SwipeRefreshLayout} works as expected when a scroll view is a direct child: it triggers the refresh only
- * when the view is the top. This class adds a new way{@link #setmScrollUpChild(View)} to define which view controls
+ * when the view is the top. This class adds a new way{@link #setScrollUpChild(View)} to define which view controls
  * this
  * behavior.
  */
@@ -34,7 +34,7 @@ public class ScrollChildSwipeRefreshLayout extends SwipeRefreshLayout {
         return super.canChildScrollUp();
     }
 
-    public void setmScrollUpChild(View view) {
+    public void setScrollUpChild(View view) {
         mScrollUpChild = view;
     }
 }

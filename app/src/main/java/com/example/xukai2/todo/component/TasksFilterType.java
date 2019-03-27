@@ -1,4 +1,4 @@
-package com.example.xukai2.todo.presenter.tasks;
+package com.example.xukai2.todo.component;
 
 /**
  * Used with the filter spinner in the tasks list.
